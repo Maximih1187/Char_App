@@ -12,6 +12,7 @@ class CharInfo extends Component {
     loading: false,
     error: false,
   };
+
   marvelAllService = new MarvelService();
   componentDidMount() {
     this.updateChar();

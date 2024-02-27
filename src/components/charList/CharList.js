@@ -39,7 +39,6 @@ const CharList = (props) => {
     if (newCharList.length < 9) {
       endet = true;
     }
-
     setCharList((charList) => [...charList, ...newCharList]);
     setloading(false);
     setNewItemLoading(false);
@@ -53,17 +52,18 @@ const CharList = (props) => {
   };
 
   const itemRefs = useRef([]);
+  console.log(itemRefs.current);
 
-  const focusOnItem = (id) => {
+  const focusOnItem = (i) => {
     itemRefs.current.forEach((item) =>
-      item.classlist.remove("char__item_selected")
+      item.classList.remove("char__item_selected")
     );
-    itemRefs.current[id].classlist.add("char__item_selected");
-    itemRefs.current[id].focus();
+    itemRefs.current[i].classList.add("char__item_selected");
+    itemRefs.current[i].focus();
   };
 
   function renderItems(arr) {
-    const items = arr.map((item) => {
+    const items = arr.map((item, i) => {
       let imgStyle = { objectFit: "cover" };
       if (
         item.thumbnail ===
@@ -75,19 +75,19 @@ const CharList = (props) => {
       return (
         <li
           className="char__item"
-          tabIndex={0}
-          //ref={(el) => (itemRefs.current[i] = el)}
+          tabIndex={i}
+          ref={(el) => (itemRefs.current[i] = el)}
           key={item.id}
           onClick={() => {
             props.onCharSelected(item.id);
-            //focusOnItem(id);
+            focusOnItem(i);
           }}
-          // onKeyPress={(e) => {
-          //   if (e.key === "" || e.key === "Enter") {
-          //     props.onCharSelected(item.id);
-          //     focusOnItem(i);
-          //   }
-          // }}
+          onKeyPress={(e) => {
+            if (e.key === "" || e.key === "Enter") {
+              props.onCharSelected(item.id);
+              focusOnItem(i);
+            }
+          }}
         >
           <img src={item.thumbnail} alt={item.name} style={imgStyle} />
           <div className="char__name">{item.name}</div>

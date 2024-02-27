@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import "./charInfo.scss";
 import PropTypes from "prop-types";
 import MarvelService from "../../services/MarvelService";
@@ -17,25 +17,16 @@ const CharInfo = (props) => {
     updateChar();
   }, [props]);
 
-  // useEffect(
-  //   (prevProps) => {
-  //     if (props.charId !== prevProps.charId) {
-  //       updateChar();
-  //     }
-  //   },
-  //   [props]
-  // );
-
-  const updateChar = useCallback(() => {
+  const updateChar = () => {
     const { charId } = props;
-    console.log(props);
+
     if (!charId) {
       return;
     }
     onCharLoading();
 
     marvelAllService.getCharacter(charId).then(onCharLoaded).catch(onError);
-  }, [props]);
+  };
 
   const onCharLoaded = (char) => {
     setChar(char);

@@ -52,7 +52,6 @@ const CharList = (props) => {
   };
 
   const itemRefs = useRef([]);
-  console.log(itemRefs.current);
 
   const focusOnItem = (i) => {
     itemRefs.current.forEach((item) =>

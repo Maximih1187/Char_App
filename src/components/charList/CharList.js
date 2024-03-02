@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import "./charList.scss";
 import Spinner from "../spiner/Spinner";

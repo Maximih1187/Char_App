@@ -7,7 +7,6 @@ import Spinner from "../spiner/Spinner";
 
 const RandomChar = () => {
   const { loading, error, getCharacter, clearError } = useMarvelService();
-
   const [char, setChar] = useState({});
 
   useEffect(() => {
@@ -24,6 +23,7 @@ const RandomChar = () => {
     setChar(char);
   };
 
+  ///////////// Подготовка к условному рендеренгу   ////////
   const spinner = loading ? <Spinner /> : null;
   const errorMessage = error ? <ErrorMessage /> : null;
   const content = !(loading || error) ? <View char={char} /> : null;
@@ -56,9 +56,11 @@ const View = ({ char }) => {
 
   const classRandomcharImg = "randomchar__img";
   const classNoRandomcharImg = "randomchar__noimg";
+
   const classRandomcharImgs =
     thumbnail === apiImg ? classNoRandomcharImg : classRandomcharImg;
   const notDescription = "Нет данных";
+
   const randomcharDescription =
     description === "" ? notDescription : description;
 

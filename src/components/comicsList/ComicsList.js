@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./comicsList.scss";
 import Spinner from "../spiner/Spinner";
+import { NavLink } from "react-router-dom";
 
 import useComicsService from "../../services/ComicsService";
 import ErrorMessage from "../errorMessage/Error";
@@ -10,32 +11,27 @@ const ComicsList = () => {
   const [charList, setCharList] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
   const [charEndet, setCharEndet] = useState(false);
-  const [offset, setOffset] = useState(4);
-
-  console.log(1);
+  const [offset, setOffset] = useState(false);
 
   useEffect(() => {
-    console.log(2);
     onReques(offset, true);
     console.log(offset);
   }, []);
 
   const onReques = (offset, initial) => {
-    console.log(3);
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
     getAllComics(offset).then(onCharListLoaded);
   };
 
   const onCharListLoaded = (newCharList) => {
-    console.log(4);
     let endet = false;
-    if (newCharList.length < 4) {
+    if (newCharList.length < 8) {
       endet = true;
     }
 
     setCharList((charList) => [...charList, ...newCharList]);
     setNewItemLoading(false);
-    setOffset(offset + 4);
+    setOffset(offset + 8);
     setCharEndet(endet);
   };
 
@@ -51,15 +47,17 @@ const ComicsList = () => {
 
       return (
         <li className="comics__item" key={i}>
-          <a href="#">
-            <img
-              src={item.thumbnail}
-              alt="ultimate war"
-              className="comics__item-img"
-            />
-            <div className="comics__item-name">{item.name}</div>
-            <div className="comics__item-price">{item.price}</div>
-          </a>
+          <NavLink end to="SingleComic">
+            <a href="#">
+              <img
+                src={item.thumbnail}
+                alt="ultimate war"
+                className="comics__item-img"
+              />
+              <div className="comics__item-name">{item.name}</div>
+              <div className="comics__item-price">{item.price}</div>
+            </a>
+          </NavLink>
         </li>
       );
     });

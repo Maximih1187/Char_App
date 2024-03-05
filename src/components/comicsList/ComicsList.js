@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import "./comicsList.scss";
-import uw from "../../resources/img/UW.png";
 import Spinner from "../spiner/Spinner";
 
 import useComicsService from "../../services/ComicsService";
@@ -8,28 +7,35 @@ import ErrorMessage from "../errorMessage/Error";
 
 const ComicsList = () => {
   const { loading, error, getAllComics } = useComicsService();
-
   const [charList, setCharList] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
   const [charEndet, setCharEndet] = useState(false);
-  const [offset, setOffset] = useState(false);
+  const [offset, setOffset] = useState(4);
+
+  console.log(1);
 
   useEffect(() => {
+    console.log(2);
     onReques(offset, true);
+    console.log(offset);
   }, []);
 
   const onReques = (offset, initial) => {
+    console.log(3);
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
     getAllComics(offset).then(onCharListLoaded);
   };
+
   const onCharListLoaded = (newCharList) => {
+    console.log(4);
     let endet = false;
-    if (newCharList.length < 8) {
+    if (newCharList.length < 4) {
       endet = true;
     }
+
     setCharList((charList) => [...charList, ...newCharList]);
     setNewItemLoading(false);
-    setOffset((offset) => offset + 8);
+    setOffset(offset + 4);
     setCharEndet(endet);
   };
 

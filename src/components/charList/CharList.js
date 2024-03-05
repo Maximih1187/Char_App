@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import "./charList.scss";
 import Spinner from "../spiner/Spinner";
@@ -15,23 +15,26 @@ const CharList = (props) => {
 
   useEffect(() => {
     onReques(offset, true);
+    console.log(11);
   }, []);
 
   const onReques = (offset, initial) => {
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
     getAllCharacters(offset).then(onCharListLoaded);
+    console.log("pppp");
   };
 
-  const onCharListLoaded = (newCharList) => {
+  const onCharListLoaded = useCallback((newCharList) => {
     let endet = false;
     if (newCharList.length < 9) {
       endet = true;
     }
     setCharList((charList) => [...charList, ...newCharList]);
     setNewItemLoading(false);
-    setOffset((offset) => offset + 9);
+    setOffset(offset + 9);
+
     setCharEndet(endet);
-  };
+  }, []);
 
   const itemRefs = useRef([]);
 
@@ -58,7 +61,7 @@ const CharList = (props) => {
           className="char__item"
           tabIndex={i}
           ref={(el) => (itemRefs.current[i] = el)}
-          key={item.id}
+          key={i}
           onClick={() => {
             props.onCharSelected(item.id);
             focusOnItem(i);

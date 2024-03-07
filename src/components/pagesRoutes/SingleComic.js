@@ -1,6 +1,6 @@
 import "./singleComic.scss";
 import xMen from "../../resources/img/x-men.png";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SingleComic = () => {
   return (
@@ -20,17 +20,9 @@ const SingleComic = () => {
         <div className="single-comic__price">9.99$</div>
       </div>
 
-      <a href="" className="single-comic__back">
-        <NavLink
-          end
-          style={({ isActive }) => ({
-            color: isActive ? "#9f0013" : "inherit",
-          })}
-          to="/"
-        >
-          Back to all
-        </NavLink>
-      </a>
+      <Link to="/Comics" className="single-comic__back">
+        Back to all
+      </Link>
     </div>
   );
 };

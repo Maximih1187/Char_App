@@ -6,7 +6,7 @@ const AppHeader = () => {
     <header className="app__header">
       <h1 className="app__title">
         <a href="#">
-          <Link to="..">
+          <Link to="/">
             <span>Marvel</span> information portal
           </Link>
         </a>
@@ -15,7 +15,6 @@ const AppHeader = () => {
         <ul>
           <li>
             <NavLink
-              end
               style={({ isActive }) => ({
                 color: isActive ? "#9f0013" : "inherit",
               })}
@@ -26,7 +25,6 @@ const AppHeader = () => {
           </li>
           <li>
             <NavLink
-              end
               style={({ isActive }) => ({
                 color: isActive ? "#9f0013" : "inherit",
               })}

@@ -23,6 +23,7 @@ const useComicsService = () => {
   const _transformCharacter = (char) => {
     return {
       id: char.id,
+      description: char.description,
       name: char.title,
       thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
       price: char.prices[0].price,

@@ -15,13 +15,11 @@ const CharList = (props) => {
 
   useEffect(() => {
     onReques(offset, true);
-    console.log(11);
   }, []);
 
   const onReques = (offset, initial) => {
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
     getAllCharacters(offset).then(onCharListLoaded);
-    console.log("pppp");
   };
 
   const onCharListLoaded = useCallback((newCharList) => {

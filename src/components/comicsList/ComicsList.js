@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import "./comicsList.scss";
 import Spinner from "../spiner/Spinner";
 import { NavLink } from "react-router-dom";
-
 import useComicsService from "../../services/ComicsService";
 import ErrorMessage from "../errorMessage/Error";
 
-const ComicsList = () => {
+const ComicsList = (props) => {
   const { loading, error, getAllComics } = useComicsService();
   const [charList, setCharList] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
@@ -15,7 +14,6 @@ const ComicsList = () => {
 
   useEffect(() => {
     onReques(offset, true);
-    console.log(offset);
   }, []);
 
   const onReques = (offset, initial) => {
@@ -47,16 +45,14 @@ const ComicsList = () => {
 
       return (
         <li className="comics__item" key={i}>
-          <NavLink end to="SingleComic">
-            <a href="#">
-              <img
-                src={item.thumbnail}
-                alt="ultimate war"
-                className="comics__item-img"
-              />
-              <div className="comics__item-name">{item.name}</div>
-              <div className="comics__item-price">{item.price}</div>
-            </a>
+          <NavLink to="/SingleComic">
+            <img
+              src={item.thumbnail}
+              alt="ultimate war"
+              className="comics__item-img"
+            />
+            <div className="comics__item-name">{item.name}</div>
+            <div className="comics__item-price">{item.price}</div>
           </NavLink>
         </li>
       );

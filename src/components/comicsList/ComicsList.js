@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import useComicsService from "../../services/ComicsService";
 import ErrorMessage from "../errorMessage/Error";
 
-const ComicsList = (props) => {
+const ComicsList = () => {
   const { loading, error, getAllComics } = useComicsService();
   const [charList, setCharList] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
@@ -45,7 +45,7 @@ const ComicsList = (props) => {
 
       return (
         <li className="comics__item" key={i}>
-          <NavLink to="/SingleComic">
+          <NavLink to={`/Comics/${item.id}`}>
             <img
               src={item.thumbnail}
               alt="ultimate war"

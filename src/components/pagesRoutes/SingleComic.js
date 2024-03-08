@@ -1,29 +1,65 @@
 import "./singleComic.scss";
-import xMen from "../../resources/img/x-men.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useComicsService from "../../services/ComicsService";
+import Spinner from "../spiner/Spinner";
+import ErrorMessage from "../errorMessage/Error";
+import AppBanner from "../appBanner/AppBanner";
 
 const SingleComic = () => {
-  return (
-    <div className="single-comic">
-      <img src={xMen} alt="x-men" className="single-comic__img" />
-      <div className="single-comic__info">
-        <h2 className="single-comic__name">X-Men: Days of Future Past</h2>
-        <p className="single-comic__descr">
-          Re-live the legendary first journey into the dystopian future of 2013
-          - where Sentinels stalk the Earth, and the X-Men are humanity's only
-          hope...until they die! Also featuring the first appearance of Alpha
-          Flight, the return of the Wendigo, the history of the X-Men from
-          Cyclops himself...and a demon for Christmas!?
-        </p>
-        <p className="single-comic__descr">144 pages</p>
-        <p className="single-comic__descr">Language: en-us</p>
-        <div className="single-comic__price">9.99$</div>
-      </div>
+  const [comic, setComic] = useState(null);
 
-      <Link to="/Comics" className="single-comic__back">
-        Back to all
-      </Link>
-    </div>
+  const { comicId } = useParams();
+
+  const { loading, error, getComic, clearError } = useComicsService();
+
+  useEffect(() => {
+    updateComic();
+  }, [comicId]);
+
+  const updateComic = () => {
+    clearError();
+    getComic(comicId).then(onComicLoaded);
+  };
+
+  const onComicLoaded = (comic) => {
+    setComic(comic);
+  };
+
+  const spinner = loading ? <Spinner /> : null;
+  const errorMessage = error ? <ErrorMessage /> : null;
+  const content = !(loading || error || !comic) ? <View comic={comic} /> : null;
+
+  return (
+    <>
+      <AppBanner />
+      {spinner}
+      {errorMessage}
+      {content}
+    </>
+  );
+};
+
+const View = ({ comic }) => {
+  const { title, description, pageCount, thumbnail, language, price } = comic;
+
+  return (
+    <>
+      <div className="single-comic">
+        <img src={thumbnail} alt="x-men" className="single-comic__img" />
+        <div className="single-comic__info">
+          <h2 className="single-comic__name">{title}</h2>
+          <p className="single-comic__descr">{description}</p>
+          <p className="single-comic__descr">{pageCount}</p>
+          <p className="single-comic__descr">Language: {language}</p>
+          <div className="single-comic__price">{price}$</div>
+        </div>
+
+        <Link to="/Comics" className="single-comic__back">
+          Back to all
+        </Link>
+      </div>
+    </>
   );
 };
 

@@ -23,6 +23,7 @@ const AppHeader = () => {
               Characters
             </NavLink>
           </li>
+
           <li>
             <NavLink
               style={({ isActive }) => ({

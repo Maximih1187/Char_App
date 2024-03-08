@@ -12,23 +12,29 @@ const useComicsService = () => {
       `${_apiBase}comics?limit=8&offset=${offset}&apikey=${_apiKey}`
     );
 
-    return res.data.results.map(_transformCharacter);
+    return res.data.results.map(_transformComic);
   };
 
-  const getCharacter = async (id) => {
+  const getComic = async (id) => {
     const res = await request(`${_apiBase}comics/${id}?apikey=${_apiKey}`);
-    return _transformCharacter(res.data.results[0]);
+    return _transformComic(res.data.results[0]);
   };
 
-  const _transformCharacter = (char) => {
+  const _transformComic = (comics) => {
     return {
-      id: char.id,
-      description: char.description,
-      name: char.title,
-      thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
-      price: char.prices[0].price,
+      id: comics.id,
+      title: comics.title,
+      description: comics.description || "There is no description",
+      pageCount: comics.pageCount
+        ? `${comics.pageCount} p.`
+        : "No information about the number of pages",
+      thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+      language: comics.textObjects[0]?.language || "en-us",
+      price: comics.prices[0].price
+        ? `${comics.prices[0].price}$`
+        : "not available",
     };
   };
-  return { loading, error, getAllComics, getCharacter, clearError };
+  return { loading, error, getAllComics, getComic, clearError };
 };
 export default useComicsService;

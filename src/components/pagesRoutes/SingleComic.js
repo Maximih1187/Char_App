@@ -7,9 +7,8 @@ import ErrorMessage from "../errorMessage/Error";
 import AppBanner from "../appBanner/AppBanner";
 
 const SingleComic = () => {
-  const [comic, setComic] = useState(null);
-
   const { comicId } = useParams();
+  const [comic, setComic] = useState(null);
 
   const { loading, error, getComic, clearError } = useComicsService();
 

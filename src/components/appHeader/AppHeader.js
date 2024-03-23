@@ -19,6 +19,7 @@ const AppHeader = () => {
                 color: isActive ? "#9f0013" : "inherit",
               })}
               to="/"
+
             >
               Characters
             </NavLink>

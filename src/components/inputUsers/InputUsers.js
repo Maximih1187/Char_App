@@ -1,33 +1,41 @@
 
-import { useDispatch } from 'react-redux';
+
 import './inputUsers.scss'
-import { useReducer } from 'react';
 import { useState } from 'react';
 
 const InputUsers = () => {
-    const dispatch = useDispatch()
-    const [value, setValue] = useState({ name: '', email: "" })
+    const [valueName, setValueName] = useState("")
+    const [valueEmail, setValueEmail] = useState("")
 
-    console.log({ value });
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const objData = {
+            name: valueName,
+            email: valueEmail
+        }
+        console.log(objData);
+    }
+
     return (
         <div>
-            <form className='input-users' action="">
+            <form onSubmit={handleSubmit} className='input-users' action="">
                 <input className='input-users_input'
                     type="text"
                     name="name"
                     placeholder='name'
-                    value={value.name}
-                    onChange={(e) => setValue(e.target.value)}
+                    value={valueName}
+                    onChange={(e) => setValueName(e.target.value)}
                 />
                 <input className='input-users_input'
                     type="email"
                     name="email"
                     placeholder='email'
-                    value={value.email}
-                    onChange={(e) => setValue(e.target.value)}
+                    value={valueEmail}
+                    onChange={(e) => setValueEmail(e.target.value)}
                 />
-                <button onSubmit={(e) => e.defaultPrevented} className='input-users_button'>отправить</button>
+                <button type='submit' className='input-users_button'>отправить</button>
             </form>
+
 
         </div>
     );

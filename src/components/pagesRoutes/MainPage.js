@@ -5,7 +5,9 @@ import CharSearchForm from "../charSearchForm/CharSearchForm";
 import ErrorBoundary from "../eroorBoundary/ErrorBoundary";
 import decoration from "../../resources/img/vision.png";
 import ProductCard from "../productCard/ProductCard";
+import InputUsers from "../inputUsers/InputUsers";
 import { useState } from "react";
+
 
 const MainPage = () => {
   const [selectedChar, setChar] = useState(null);
@@ -28,7 +30,10 @@ const MainPage = () => {
         </div>
         <ProductCard />
 
+
       </div>
+      <InputUsers />
+
       <img className="bg-decoration" src={decoration} alt="vision" />
 
     </>

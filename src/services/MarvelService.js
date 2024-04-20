@@ -38,6 +38,7 @@ const useMarvelService = () => {
 
     };
   };
+
   return { loading, error, getAllCharacters, getCharacter, clearError, getCharacterByName };
 };
 export default useMarvelService;

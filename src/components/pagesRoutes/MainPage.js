@@ -4,6 +4,7 @@ import CharInfo from "../charInfo/CharInfo";
 import CharSearchForm from "../charSearchForm/CharSearchForm";
 import ErrorBoundary from "../eroorBoundary/ErrorBoundary";
 import decoration from "../../resources/img/vision.png";
+import ProductCard from "../productCard/ProductCard";
 import { useState } from "react";
 
 const MainPage = () => {
@@ -25,9 +26,11 @@ const MainPage = () => {
             <CharSearchForm />
           </ErrorBoundary>
         </div>
+        <ProductCard />
 
       </div>
       <img className="bg-decoration" src={decoration} alt="vision" />
+
     </>
   );
 };

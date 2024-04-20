@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { ComicsPage, MainPage, SingleComic, SingleChar } from "../pagesRoutes";
 import Spinner from "../spiner/Spinner";
 
+
 const Page404 = lazy(() => import("../pagesRoutes/Page404"));
 
 const App = () => {

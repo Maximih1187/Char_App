@@ -11,6 +11,6 @@ export const decrement = () => {
 }
 export const rescrement = () => {
       return {
-            type: 'RESCREMENT', payload: 1,
+            type: 'RESCREMENT', payload: 1
       };
 }

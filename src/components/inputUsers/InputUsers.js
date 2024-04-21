@@ -1,42 +1,56 @@
 
-
+import * as Yup from 'yup';
 import './inputUsers.scss'
-import { useState } from 'react';
+//import { useState } from 'react';
+import { useFormik } from 'formik';
+//import * as Yup from 'yup';
+
+
+
+// const SignupSchema = Yup.object().shape({
+//     name: Yup.string()
+//         .min(2, 'Too Short!')
+//         .max(50, 'Too Long!')
+//         .required('Required'),
+//     email: Yup.string().email('Invalid email').required('Required'),
+// });
+
 
 const InputUsers = () => {
-    const [valueName, setValueName] = useState("")
-    const [valueEmail, setValueEmail] = useState("")
+    // const [valueName, setValueName] = useState('')
+    // const [valueEmail, setValueEmail] = useState('')
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const objData = {
-            name: valueName,
-            email: valueEmail
-        }
-        console.log(objData);
-    }
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+        },
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 3));
+        },
+    });
 
     return (
+
         <div>
-            <form onSubmit={handleSubmit} className='input-users' action="">
+            <form onSubmit={formik.handleSubmit} className='input-users' action="">
                 <input className='input-users_input'
                     type="text"
                     name="name"
                     placeholder='name'
-                    value={valueName}
-                    onChange={(e) => setValueName(e.target.value)}
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
                 />
                 <input className='input-users_input'
                     type="email"
                     name="email"
                     placeholder='email'
-                    value={valueEmail}
-                    onChange={(e) => setValueEmail(e.target.value)}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                 />
                 <button type='submit' className='input-users_button'>отправить</button>
             </form>
-
-
         </div>
     );
 }
